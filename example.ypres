@@ -1,0 +1,19 @@
+// example Ypres source code
+
+main: nil () {
+	x := 5
+	y := 3
+	z := add(x, y)
+}
+
+/* this is
+	a
+	multiline
+	comment
+*/
+
+add: i32 (x, y: i32) {
+	if x > y {
+		x + y
+	}
+}
