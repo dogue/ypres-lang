@@ -17,3 +17,11 @@ add: i32 (x, y: i32) {
 		x + y
 	}
 }
+
+same: bool (x, y: i32) {
+	if x == y {
+		return true
+	} else {
+		return false
+	}
+}

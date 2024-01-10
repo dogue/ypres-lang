@@ -6,6 +6,8 @@ pub enum Keyword {
     Return,
     If,
     Else,
+    True,
+    False,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -45,10 +47,12 @@ impl FromStr for Keyword {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "main" => Ok(Keyword::Main),
-            "return" => Ok(Keyword::Return),
-            "if" => Ok(Keyword::If),
-            "else" => Ok(Keyword::Else),
+            "main" => Ok(Self::Main),
+            "return" => Ok(Self::Return),
+            "if" => Ok(Self::If),
+            "else" => Ok(Self::Else),
+            "true" => Ok(Self::True),
+            "false" => Ok(Self::False),
             _ => Err("invalid keyword".into()),
         }
     }
