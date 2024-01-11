@@ -3,11 +3,9 @@
 pub mod keywords;
 pub mod token;
 
-use std::str::FromStr;
-
-use token::*;
-
 use self::keywords::{Keyword, Type};
+use std::str::FromStr;
+use token::*;
 
 #[derive(Debug)]
 pub struct Tokenizer {
@@ -36,7 +34,7 @@ impl Tokenizer {
         t
     }
 
-    pub fn next_token(&mut self) -> Token {
+    fn next_token(&mut self) -> Token {
         self.skip_whitespace();
         let token: Token;
 
@@ -51,7 +49,7 @@ impl Tokenizer {
                     let comment = self.extract_comment_multiline();
                     return Token::new(TokenType::Comment, &comment, pos);
                 } else {
-                    return Token::new(TokenType::Invalid, &self.chstr(), self.pos());
+                    return Token::new(TokenType::Slash, &self.chstr(), self.pos());
                 }
             }
             'a'..='z' | 'A'..='Z' | '_' => {
@@ -150,7 +148,7 @@ impl Tokenizer {
 
         if self.ch == '\n' {
             self.line += 1;
-            self.col = 1;
+            self.col = 0;
         } else {
             self.col += 1;
         }
@@ -217,6 +215,20 @@ impl Tokenizer {
 
     fn chstr(&self) -> String {
         String::from(self.ch)
+    }
+}
+
+impl Iterator for Tokenizer {
+    type Item = Token;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let token = self.next_token();
+
+        if token.token_type == TokenType::EOF {
+            return None;
+        }
+
+        Some(token)
     }
 }
 

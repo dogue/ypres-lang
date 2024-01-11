@@ -1,28 +1,22 @@
-use ypres::tokenizer::{token::TokenType, Tokenizer};
+use ypres::tokenizer::Tokenizer;
 
 fn main() {
     let input = r#"// example Ypres source code
 
-    main: nil () {
-        x := 5
-        y := 3
-        z := add(x, y)
-    }
+main: nil () {
+    x := 5
+    y := 3
+    z := add(x, y)
+}
 
-    add: i32 (x, y: i32) {
-        x + y
-    }
+add: i32 (x, y: i32) {
+    x + y
+}
     "#;
-    let mut t = Tokenizer::new(input);
+    let t = Tokenizer::new(input);
 
-    loop {
-        let tok = t.next_token();
-
-        println!("{tok:?}");
-
-        if tok.token_type == TokenType::EOF {
-            break;
-        }
+    for token in t {
+        println!("{token:?}");
     }
 }
 

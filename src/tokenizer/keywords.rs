@@ -6,6 +6,7 @@ pub enum Keyword {
     Return,
     If,
     Else,
+    Match,
     True,
     False,
 }
@@ -14,6 +15,7 @@ pub enum Keyword {
 pub enum Type {
     Nil,
     Bool,
+    Int,
     I32,
     I64,
     U32,
@@ -28,6 +30,7 @@ impl FromStr for Type {
         match s {
             "nil" => Ok(Self::Nil),
             "bool" => Ok(Self::Bool),
+            "int" => Ok(Self::Int),
             "i32" => Ok(Self::I32),
             "i64" => Ok(Self::I64),
             "u32" => Ok(Self::U32),
@@ -51,6 +54,7 @@ impl FromStr for Keyword {
             "return" => Ok(Self::Return),
             "if" => Ok(Self::If),
             "else" => Ok(Self::Else),
+            "match" => Ok(Self::Match),
             "true" => Ok(Self::True),
             "false" => Ok(Self::False),
             _ => Err("invalid keyword".into()),
